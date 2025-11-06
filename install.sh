@@ -29,6 +29,10 @@ PACKAGES=(
         "docker"
         "lazydocker"
         "lazygit"
+        "sonic-pi"
+        "supercollider"
+        "jack-example-tools"
+        "sc3-plugins"
 )
 
 # install packages
@@ -100,6 +104,19 @@ echo "Creating symlinks..."
 create_symlink_with_backup "$DOTFILES_DIR/.bashrc" "$HOME/.bashrc" ".bashrc"
 create_symlink_with_backup "$DOTFILES_DIR/.vimrc" "$HOME/.vimrc" ".vimrc"
 create_symlink_with_backup "$DOTFILES_DIR/.config/starship.toml" "$HOME/.config/starship.toml" ".config/starship.toml"
+
+echo ""
+
+# Run optional Omarchy-specific setups
+echo "====================================="
+echo "Optional Configurations"
+echo "====================================="
+echo ""
+
+# Sonic Pi audio fix for Omarchy
+if [ -f "$DOTFILES_DIR/optional/omarchy-sonic-pi-fix.sh" ]; then
+    bash "$DOTFILES_DIR/optional/omarchy-sonic-pi-fix.sh"
+fi
 
 echo ""
 echo "====================================="
