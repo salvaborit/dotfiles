@@ -108,6 +108,7 @@ if [ -d "$HOME/.config/omarchy" ]; then
     echo ""
     echo "Detected Omarchy - setting up themes..."
     create_symlink_with_backup "$DOTFILES_DIR/.config/omarchy/themes/omarchy-sba-00-theme" "$HOME/.config/omarchy/themes/omarchy-sba-00-theme" ".config/omarchy/themes/omarchy-sba-00-theme"
+    create_symlink_with_backup "$DOTFILES_DIR/.config/omarchy/branding" "$HOME/.config/omarchy/branding" ".config/omarchy/branding"
 
     # Backgrounds import
     if [ -d "$DOTFILES_DIR/backgrounds" ]; then
