@@ -235,23 +235,16 @@
     "min-length": 6
   },
 
-  "network#throughput": {
-    "interval": 2,
-    "format": "⇣{bandwidthDownBytes} ⇡{bandwidthUpBytes}",
-    "min-length": 14
-  },
-
   "custom/ipaddr": {
     "exec": "~/.config/waybar/scripts/ipaddr.sh",
     "interval": 5,
     "return-type": "text"
   },
 
-
   "load": {
     "interval": 5,
     "format": "{load1:.2f} {load5:.2f} {load15:.2f}",
-    "min-length": 18
+    "min-length": 14
   },
 
   "custom/uptime": {
