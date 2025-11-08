@@ -23,7 +23,12 @@ This will:
 ├── .config/             # Application configs
 │   └── starship.toml    # Starship prompt config
 ├── .local/
-│   └── bin/             # User scripts
+│   ├── bin/             # User scripts
+│   │   ├── sonic-pi-with-audio
+│   │   └── supercollider-autoconnect.sh
+│   └── share/
+│       └── applications/
+│           └── sonic-pi.desktop
 ├── optional/            # Optional/OS-specific configurations
 │   └── omarchy-sonic-pi-fix.sh
 └── install.sh           # Main installation script
@@ -44,12 +49,18 @@ Fixes Sonic Pi audio output on Omarchy by auto-connecting SuperCollider JACK por
 - Makes Sonic Pi work with PipeWire out-of-the-box
 
 #### Usage
-After installation, launch Sonic Pi with:
+After installation, Sonic Pi will work automatically:
+
+**Option 1: Use App Launcher (Recommended)**
+- Launch Sonic Pi from your application menu/launcher
+- Desktop entry automatically uses the audio fix wrapper
+
+**Option 2: Command Line**
 ```bash
 ~/.local/bin/sonic-pi-with-audio
 ```
 
-Or create an alias in your `.bashrc`:
+**Option 3: Create Alias**
 ```bash
 alias sonic-pi='~/.local/bin/sonic-pi-with-audio'
 ```
@@ -63,9 +74,10 @@ If you want to run the fix separately:
 #### Technical Details
 - **Problem**: SuperCollider (scsynth) connects to PipeWire's JACK emulation but ports aren't auto-connected to audio outputs
 - **Solution**: Wrapper script that launches Sonic Pi and automatically connects JACK ports using `pw-jack jack_connect`
-- **Scripts**:
+- **Components**:
   - `supercollider-autoconnect.sh` - Waits for SuperCollider and connects ports
   - `sonic-pi-with-audio` - Wrapper that launches Sonic Pi + autoconnect
+  - `sonic-pi.desktop` - Desktop entry override that uses the wrapper
 
 #### Why Omarchy-Specific?
 This issue affects Arch Linux installations using PipeWire + pipewire-jack (standard modern setup). The fix is made optional and Omarchy-specific to avoid running on systems where it might not be needed or where users have different audio setups.

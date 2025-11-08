@@ -67,16 +67,38 @@ for script in supercollider-autoconnect.sh sonic-pi-with-audio; do
     fi
 done
 
+# Deploy desktop entry override
+echo -e "${BLUE}[Desktop Entry]${NC} Deploying app launcher override..."
+
+DESKTOP_SOURCE="$DOTFILES_DIR/.local/share/applications"
+DESKTOP_TARGET="$HOME/.local/share/applications"
+
+mkdir -p "$DESKTOP_TARGET"
+
+if [ -f "$DESKTOP_SOURCE/sonic-pi.desktop" ]; then
+    cp "$DESKTOP_SOURCE/sonic-pi.desktop" "$DESKTOP_TARGET/"
+    echo -e "${GREEN}  ✓${NC} Deployed sonic-pi.desktop"
+
+    # Update desktop database if update-desktop-database is available
+    if command -v update-desktop-database &>/dev/null; then
+        update-desktop-database "$DESKTOP_TARGET" 2>/dev/null || true
+        echo -e "${GREEN}  ✓${NC} Updated desktop database"
+    fi
+else
+    echo -e "${YELLOW}  !${NC} Warning: sonic-pi.desktop not found in dotfiles"
+fi
+
 echo ""
 echo -e "${GREEN}[Success]${NC} Sonic Pi audio fix applied!"
 echo ""
 echo -e "${BLUE}Usage:${NC}"
-echo "  Launch Sonic Pi with audio: ~/.local/bin/sonic-pi-with-audio"
-echo "  Or create an alias in your shell config:"
-echo "    alias sonic-pi='~/.local/bin/sonic-pi-with-audio'"
+echo "  • Launch from app launcher (automatically uses audio fix)"
+echo "  • Or run: ~/.local/bin/sonic-pi-with-audio"
+echo "  • Or create an alias: alias sonic-pi='~/.local/bin/sonic-pi-with-audio'"
 echo ""
 echo -e "${BLUE}What was fixed:${NC}"
 echo "  • SuperCollider JACK ports now auto-connect to system audio"
 echo "  • PipeWire JACK emulation works seamlessly"
 echo "  • No manual port connection needed"
+echo "  • App launcher entry now uses wrapper script"
 echo ""
