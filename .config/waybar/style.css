@@ -9,6 +9,7 @@
     min-height: 0;
     font-family: 'SFMono Nerd Font';
     font-size: 12px;
+    font-weight: 700;
 }
 
 .modules-left, .modules-right, .modules-center {
@@ -77,9 +78,10 @@
 }
 
 tooltip {
-    background-color: alpha(@background, 0.3);
+    background-color: alpha(@background, 0.9);
     border: 1px solid alpha(@foreground, 0.15);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 11px;
     padding: 2px;
 }
 
