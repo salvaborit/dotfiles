@@ -32,6 +32,10 @@ Backend developer's vanilla Arch Linux + Hyprland dotfiles. Self-contained, modu
 - **Alacritty**: `~/.config/alacritty/alacritty.toml` - CaskaydiaMono Nerd Font, custom padding
 - **Starship**: `~/.config/starship.toml` - Cross-shell prompt with language/tool detection
 - **Bash**: `~/.bashrc` - Git aliases, Docker shortcuts, tree visualization, PATH extension
+- **Neovim + LazyVim**: `~/.config/nvim/` - Modern IDE-like editing with lazy-loaded plugins
+  - Quick launch: `n` alias (from terminal)
+  - Default editor: `$EDITOR` set to `nvim`
+  - Fallback vim: `.vimrc` remains for classic vim usage
 
 ### Theme System
 **Location**: `~/.config/themes/`
@@ -146,13 +150,14 @@ Test without logout: `hyprctl reload`
 ├── waybar/            # Status bar + scripts
 ├── walker/            # App launcher
 ├── alacritty/         # Terminal emulator
+├── nvim/              # Neovim + LazyVim
 ├── starship.toml      # Shell prompt
 ├── themes/            # Centralized theme system
 └── ...
 
 ~/.local/bin/          # User scripts
 ~/.bashrc              # Bash config + aliases
-~/.vimrc               # Vim config
+~/.vimrc               # Vim config (fallback)
 ```
 
 ## Important Paths
@@ -160,6 +165,7 @@ Test without logout: `hyprctl reload`
 - Hyprland autostart: `~/.config/hypr/autostart.conf`
 - Clipboard bindings: `~/.config/hypr/clipboard-bindings.conf`
 - Waybar config: `~/.config/waybar/config.jsonc`
+- Neovim config: `~/.config/nvim/init.lua`
 - Theme directory: `~/.config/themes/`
 - Current theme: `~/.config/themes/current` (symlink)
 - User scripts: `~/.local/bin/`
@@ -187,7 +193,7 @@ See `MIGRATION_STATUS.md` for detailed migration guide and testing checklist.
 
 **Core System:**
 - hyprland, waybar, walker, mako, hypridle, hyprsunset
-- alacritty, starship, bash, vim, tree
+- alacritty, starship, bash, vim, neovim, tree
 - docker, lazydocker, lazygit, obsidian
 
 **Clipboard System:**

@@ -22,7 +22,8 @@ alias g='git'
 alias pingpi='ping 192.168.1.12'
 
 # claude code editor
-export EDITOR='vim'
+export EDITOR='nvim'
+alias n='nvim'
 
 
 # show file system structure trees

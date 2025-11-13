@@ -70,6 +70,7 @@ STOW_PACKAGES=(
     "hyprland"
     "waybar"
     "terminal"
+    "neovim"
     "walker"
     "themes"
     "scripts-local"
