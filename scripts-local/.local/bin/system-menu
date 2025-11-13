@@ -1,0 +1,165 @@
+#!/bin/bash
+# Minimal system menu using walker
+# Provides quick access to common system actions
+
+menu() {
+  walker --dmenu -p "$1"
+}
+
+show_main_menu() {
+  cat <<EOF | menu "System Menu"
+ Screenshot
+ Screenrecord
+󱑢 Toggle Waybar
+󰄬 Toggle Hypridle
+ Toggle Nightlight
+ Keybindings
+ Theme
+ Power
+ About
+EOF
+}
+
+show_screenshot_menu() {
+  cat <<EOF | menu "Screenshot"
+ Smart Selection
+ Free Region
+ Snap to Windows
+ Fullscreen
+ Back
+EOF
+}
+
+show_screenrecord_menu() {
+  cat <<EOF | menu "Screenrecord"
+ Region
+ Region + Audio
+ Region + Webcam
+ Region + Audio + Webcam
+ Full Output
+ Full Output + Audio
+ Stop Recording
+ Back
+EOF
+}
+
+show_theme_menu() {
+  {
+    theme-list | while read -r theme; do
+      echo " $theme"
+    done
+    echo " Back"
+  } | menu "Select Theme"
+}
+
+show_power_menu() {
+  cat <<EOF | menu "Power"
+ Lock
+ Suspend
+ Restart
+ Shutdown
+ Back
+EOF
+}
+
+# Main menu loop
+main() {
+  while true; do
+    choice=$(show_main_menu)
+
+    case "$choice" in
+      " Screenshot")
+        subchoice=$(show_screenshot_menu)
+        case "$subchoice" in
+          " Smart Selection") screenshot smart ;;
+          " Free Region") screenshot region ;;
+          " Snap to Windows") screenshot windows ;;
+          " Fullscreen") screenshot fullscreen ;;
+          " Back") continue ;;
+          *) exit 0 ;;
+        esac
+        ;;
+
+      " Screenrecord")
+        subchoice=$(show_screenrecord_menu)
+        case "$subchoice" in
+          " Region") screenrecord region ;;
+          " Region + Audio") screenrecord region --with-audio ;;
+          " Region + Webcam") screenrecord region --with-webcam ;;
+          " Region + Audio + Webcam") screenrecord region --with-audio --with-webcam ;;
+          " Full Output") screenrecord output ;;
+          " Full Output + Audio") screenrecord output --with-audio ;;
+          " Stop Recording") screenrecord ;;  # Stops if running
+          " Back") continue ;;
+          *) exit 0 ;;
+        esac
+        ;;
+
+      "󱑢 Toggle Waybar")
+        toggle-waybar
+        exit 0
+        ;;
+
+      "󰄬 Toggle Hypridle")
+        toggle-hypridle
+        exit 0
+        ;;
+
+      " Toggle Nightlight")
+        toggle-nightlight
+        exit 0
+        ;;
+
+      " Keybindings")
+        show-keybindings
+        exit 0
+        ;;
+
+      " Theme")
+        subchoice=$(show_theme_menu)
+        if [[ "$subchoice" == " Back" || -z "$subchoice" ]]; then
+          continue
+        else
+          theme_name=$(echo "$subchoice" | sed 's/^  //')
+          theme-set "$theme_name"
+          exit 0
+        fi
+        ;;
+
+      " Power")
+        subchoice=$(show_power_menu)
+        case "$subchoice" in
+          " Lock")
+            hyprlock
+            exit 0
+            ;;
+          " Suspend")
+            systemctl suspend
+            exit 0
+            ;;
+          " Restart")
+            systemctl reboot
+            exit 0
+            ;;
+          " Shutdown")
+            systemctl poweroff
+            exit 0
+            ;;
+          " Back") continue ;;
+          *) exit 0 ;;
+        esac
+        ;;
+
+      " About")
+        fastfetch | menu "About"
+        ;;
+
+      *)
+        # User cancelled or empty selection
+        exit 0
+        ;;
+    esac
+  done
+}
+
+main

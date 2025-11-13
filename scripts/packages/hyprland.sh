@@ -15,13 +15,23 @@ install_hyprland_stack() {
         "waybar"
         "mako"                          # Notification daemon
         "swaylock"                      # Screen lock
+        "hypridle"                      # Idle management
+        "hyprlock"                      # Screen locker
+        "hyprsunset"                    # Screen temperature control
+        "swaybg"                        # Wallpaper daemon
         "grim"                          # Screenshot utility
         "slurp"                         # Region selector
+        "satty"                         # Screenshot annotation
+        "jq"                            # JSON processor for scripts
         "wl-clipboard"                  # Clipboard manager
         "polkit-kde-agent"              # Polkit authentication
         "xdg-desktop-portal-hyprland"   # Desktop portal
         "qt5-wayland"                   # Qt5 Wayland support
         "qt6-wayland"                   # Qt6 Wayland support
+        "xorg-xwayland"                 # X11 compatibility
+        "imagemagick"                   # Image processing (for elephant)
+        "ffmpeg"                        # Video processing (for screenrecord)
+        "v4l-utils"                     # Webcam support (for screenrecord)
     )
 
     install_packages "${packages[@]}"
@@ -30,6 +40,10 @@ install_hyprland_stack() {
     echo ""
     local aur_packages=(
         "walker"                        # Application launcher
+        "elephant"                      # Clipboard history backend
+        "elephant-clipboard"            # Clipboard provider for walker
+        "gpu-screen-recorder"           # Hardware-accelerated screen recording
+        "wayfreeze"                     # Screen freeze for screenshots
     )
 
     install_aur_packages "${aur_packages[@]}"

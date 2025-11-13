@@ -1,0 +1,24 @@
+#!/bin/bash
+# Toggle nightlight (screen temperature) between warm and cool
+
+# Default temperature values
+ON_TEMP=4000   # Warm (nightlight on)
+OFF_TEMP=6000  # Cool (daylight)
+
+# Ensure hyprsunset is running
+if ! pgrep -x hyprsunset; then
+  hyprsunset &
+  sleep 0.5 # Give it time to register
+fi
+
+# Query the current temperature
+CURRENT_TEMP=$(hyprctl hyprsunset temperature 2>/dev/null | grep -oE '[0-9]+')
+
+# Toggle between temperatures
+if [[ "$CURRENT_TEMP" == "$OFF_TEMP" ]]; then
+  hyprctl hyprsunset temperature $ON_TEMP
+  notify-send "Nightlight" "Warm screen temperature (${ON_TEMP}K)"
+else
+  hyprctl hyprsunset temperature $OFF_TEMP
+  notify-send "Nightlight" "Cool screen temperature (${OFF_TEMP}K)"
+fi

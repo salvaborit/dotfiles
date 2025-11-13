@@ -1,0 +1,10 @@
+#!/bin/bash
+# Toggle hypridle (idle lock) on/off
+
+if pgrep -x hypridle >/dev/null; then
+  pkill -x hypridle
+  notify-send "Hypridle Disabled" "Computer will not lock when idle"
+else
+  hypridle >/dev/null 2>&1 &
+  notify-send "Hypridle Enabled" "Computer will lock when idle"
+fi

@@ -23,8 +23,10 @@ Backend developer's vanilla Arch Linux + Hyprland dotfiles. Self-contained, modu
 - **Scripts**: `~/.config/waybar/scripts/` - ipaddr.sh (network info), cava.sh (audio viz)
 - **Modules**: CPU, memory, disk, load, uptime, network, battery, media controls, system tray
 
-### Application Launcher
+### Application Launcher & Clipboard
 - **Walker**: `~/.config/walker/config.toml` - Desktop apps, files, websearch, calculator, clipboard, symbols
+- **Elephant**: Backend service providing clipboard history to walker
+- **Clipboard bindings**: `~/.config/hypr/clipboard-bindings.conf` - Universal Super+C/V/X shortcuts
 
 ### Terminal Stack
 - **Alacritty**: `~/.config/alacritty/alacritty.toml` - CaskaydiaMono Nerd Font, custom padding
@@ -32,10 +34,12 @@ Backend developer's vanilla Arch Linux + Hyprland dotfiles. Self-contained, modu
 - **Bash**: `~/.bashrc` - Git aliases, Docker shortcuts, tree visualization, PATH extension
 
 ### Theme System
-Target location: `~/.config/themes/main-theme/`
-- Per-app configs: alacritty, waybar, hyprland, walker, mako, btop, kitty, ghostty
-- GTK overrides, wallpapers, color schemes
-- Single source of truth for visual consistency
+**Location**: `~/.config/themes/`
+- **Structure**: Each theme in `themes/<theme-name>/`
+- **Current theme**: Symlinked at `themes/current`
+- **Per-theme files**: alacritty.toml, waybar.css, hyprland.conf, mako.conf, btop.theme, wallpaper.jpg
+- **Switching**: `theme-set <name>` (auto-reloads all components)
+- **Single source of truth** for visual consistency across all applications
 
 ## Key Scripts
 
@@ -44,20 +48,49 @@ Target location: `~/.config/themes/main-theme/`
 - **Package management**: pacman for core packages (hyprland, waybar, walker, alacritty, starship, docker, lazydocker, lazygit, vim, tree, obsidian)
 
 ### User Scripts (~/.local/bin/)
-- Audio/JACK integration helpers (if needed for Sonic Pi)
-- Custom workflow automation
-- System utilities
+**Clipboard & Utilities:**
+- `screenshot`: Smart screenshot with region/window selection + annotation (satty)
+- `screenrecord`: Region/output recording with audio mixing and webcam overlay
+- `show-keybindings`: Interactive searchable keybinding viewer
+
+**System Toggles:**
+- `toggle-waybar`: Show/hide status bar
+- `toggle-hypridle`: Enable/disable idle lock
+- `toggle-nightlight`: Switch screen temperature (4000K/6000K)
+
+**Theme Management:**
+- `theme-set <name>`: Switch active theme and reload components
+- `theme-list`: List available themes
+- `theme-current`: Show current theme
+
+**System Menu:**
+- `system-menu`: Unified walker-based menu for all utilities
 
 ## Keybinding Philosophy
+
+### Universal Clipboard (Super+C/V/X)
+- **Super+C**: Universal copy (works in terminals and GUI apps via Ctrl+Insert)
+- **Super+V**: Universal paste (works everywhere via Shift+Insert)
+- **Super+X**: Universal cut
+- **Super+Ctrl+V**: Clipboard history manager (walker)
 
 ### Application Bindings (Super+Shift+Letter)
 Quick access to frequently-used applications. Examples:
 - Web apps via browser (Claude, ChatGPT, Calendar, Email)
 - Terminal tools (btop, lazydocker, lazygit)
 - Development environment
+- **Super+Shift+S**: Screenshot (smart selection)
+- **Super+Shift+R**: Screenrecord (region)
+- **Super+SPACE**: System menu
+
+### Utility Bindings (Super+Alt)
+- **Super+Alt+W**: Toggle waybar
+- **Super+Alt+I**: Toggle hypridle (idle lock)
+- **Super+Alt+N**: Toggle nightlight
+- **Super+Shift+?**: Show keybindings viewer
 
 ### Reference Table
-See `~/.config/hypr/bindings.conf` for complete mappings.
+See `~/.config/hypr/bindings.conf` and `~/.config/hypr/clipboard-bindings.conf` for complete mappings.
 
 ## Customization Patterns
 
@@ -124,16 +157,46 @@ Test without logout: `hyprctl reload`
 
 ## Important Paths
 - Hyprland main config: `~/.config/hypr/hyprland.conf`
+- Hyprland autostart: `~/.config/hypr/autostart.conf`
+- Clipboard bindings: `~/.config/hypr/clipboard-bindings.conf`
 - Waybar config: `~/.config/waybar/config.jsonc`
-- Theme directory: `~/.config/themes/main-theme/`
+- Theme directory: `~/.config/themes/`
+- Current theme: `~/.config/themes/current` (symlink)
 - User scripts: `~/.local/bin/`
 - Bash aliases: `~/.bashrc`
 
 ## Migration Notes
-Rebuilding from Omarchy-based setup. Preserving:
-- Modular Hyprland config pattern
-- Waybar system monitoring setup
-- Custom theme system
-- Application workflow & keybindings
+Rebuilt from Omarchy-based setup. **Ported features:**
+- ✅ Universal clipboard (Super+C/V + history)
+- ✅ Screenshot tool with smart selection
+- ✅ Screenrecord with audio/webcam
+- ✅ Keybinding viewer
+- ✅ Toggle scripts (waybar, hypridle, nightlight)
+- ✅ Theme switching system
+- ✅ System menu
 
-Removing Omarchy-specific dependencies and overlay patterns.
+**Removed Omarchy-specific:**
+- uwsm/uwsm-app wrappers
+- Distribution update system
+- Browser/IDE theme integration (simplified)
+- Install/Remove/Update menus
+
+See `MIGRATION_STATUS.md` for detailed migration guide and testing checklist.
+
+## Dependencies
+
+**Core System:**
+- hyprland, waybar, walker, mako, hypridle, hyprsunset
+- alacritty, starship, bash, vim, tree
+- docker, lazydocker, lazygit, obsidian
+
+**Clipboard System:**
+- elephant, elephant-clipboard (AUR)
+- wl-clipboard
+
+**Screenshot/Screenrecord:**
+- slurp, grim, satty, wayfreeze
+- gpu-screen-recorder, ffplay, v4l2-ctl
+
+**Utilities:**
+- jq, xkbcli, fastfetch

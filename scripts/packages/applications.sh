@@ -18,6 +18,14 @@ install_applications() {
 
     install_packages "${packages[@]}"
 
+    # AUR packages
+    echo ""
+    local aur_packages=(
+        "satty"                 # Screenshot annotation tool
+    )
+
+    install_aur_packages "${aur_packages[@]}"
+
     # Note: proton-pass removed from auto-install due to AUR checksum issues
     # Install manually if needed: yay -S proton-pass
 }
