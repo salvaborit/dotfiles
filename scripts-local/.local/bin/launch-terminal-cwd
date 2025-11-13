@@ -26,4 +26,4 @@ get_terminal_cwd() {
 }
 
 cwd=$(get_terminal_cwd)
-exec alacritty --working-directory "$cwd" &
+alacritty --working-directory "$cwd" &
