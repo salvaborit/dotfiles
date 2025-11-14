@@ -29,6 +29,7 @@ install_hyprland_stack() {
         "qt5-wayland"                   # Qt5 Wayland support
         "qt6-wayland"                   # Qt6 Wayland support
         "xorg-xwayland"                 # X11 compatibility
+        "blueberry"                     # Bluetooth manager GUI
         "imagemagick"                   # Image processing
         "ffmpeg"                        # Video processing (for screenrecord)
         "v4l-utils"                     # Webcam support (for screenrecord)
