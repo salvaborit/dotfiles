@@ -14,6 +14,7 @@ install_terminal_stack() {
         "starship"
         "btop"
         "cava"
+        "eza"
     )
 
     install_packages "${packages[@]}"

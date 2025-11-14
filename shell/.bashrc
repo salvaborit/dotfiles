@@ -6,8 +6,17 @@
 # Make an alias for invoking commands you use constantly
 # alias p='python'
 
-alias l='ls -lh'
-alias ll='ls -lah'
+# File system - eza-based ls replacement
+if command -v eza &> /dev/null; then
+  alias ls='eza -lh --group-directories-first --icons=auto'
+  alias lsa='ls -a'
+  alias lt='eza --tree --level=2 --long --icons --git'
+  alias lta='lt -a'
+else
+  # Fallback to standard ls if eza is not installed
+  alias ls='ls -lh --color=auto'
+  alias lsa='ls -lah'
+fi
 
 alias gg='lazygit'
 alias gita='git add'
