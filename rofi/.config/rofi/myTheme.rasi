@@ -1,0 +1,153 @@
+/**
+ * Frosted Glass Rofi Theme
+ * Matches waybar frosted glass aesthetic
+ */
+* {
+    /* Waybar color scheme */
+    background:       #1e1e2e;
+    foreground:       #cdd6f4;
+    accent:           #a55555;
+    transparent:      rgba(0, 0, 0, 0);
+
+    /* Frosted glass colors */
+    glass-bg:         rgba(30, 30, 46, 0.01);  /* 1% opacity like waybar */
+    glass-border:     rgba(205, 214, 244, 0.2); /* 20% opacity border */
+    glass-solid:      rgba(30, 30, 46, 0.9);    /* 90% for solid elements */
+    glass-subtle:     rgba(205, 214, 244, 0.15); /* 15% for subtle borders */
+
+    background-color: @transparent;
+    text-color:       @foreground;
+
+    font:             "SFMono Nerd Font 12";
+}
+
+window {
+    transparency:     "real";
+    background-color: @glass-bg;
+    border:           1px solid;
+    border-color:     @glass-border;
+    border-radius:    11px;
+    padding:          14px;
+    width:            600px;
+}
+
+mainbox {
+    background-color: @transparent;
+    spacing:          14px;
+    padding:          0px;
+    children:         [ "inputbar", "listview", "mode-switcher" ];
+}
+
+inputbar {
+    background-color: @transparent;
+    border:           0px 0px 1px 0px solid;
+    border-color:     @glass-subtle;
+    padding:          8px 4px;
+    spacing:          8px;
+    children:         [ "prompt", "entry" ];
+}
+
+prompt {
+    background-color: @transparent;
+    text-color:       @foreground;
+    padding:          0px 8px 0px 0px;
+}
+
+entry {
+    background-color: @transparent;
+    text-color:       @foreground;
+    placeholder:      "Type to search...";
+    placeholder-color: rgba(205, 214, 244, 0.5);
+}
+
+case-indicator {
+    background-color: @transparent;
+    text-color:       @accent;
+}
+
+listview {
+    background-color: @transparent;
+    padding:          4px 0px;
+    spacing:          2px;
+    scrollbar:        true;
+    lines:            8;
+}
+
+scrollbar {
+    background-color: @transparent;
+    handle-color:     @glass-border;
+    handle-width:     4px;
+    border:           0px;
+    padding:          0px 0px 0px 4px;
+}
+
+element {
+    background-color: @transparent;
+    text-color:       @foreground;
+    padding:          6px 8px;
+    spacing:          8px;
+    border-radius:    8px;
+    children:         [ "element-icon", "element-text" ];
+}
+
+element normal.normal {
+    background-color: @transparent;
+    text-color:       @foreground;
+}
+
+element selected.normal {
+    background-color: rgba(205, 214, 244, 0.15);
+    text-color:       @foreground;
+    border:           1px solid;
+    border-color:     @glass-border;
+}
+
+element alternate.normal {
+    background-color: @transparent;
+    text-color:       @foreground;
+}
+
+element-icon {
+    background-color: @transparent;
+    size:             1.2em;
+}
+
+element-text {
+    background-color: @transparent;
+    text-color:       inherit;
+}
+
+mode-switcher {
+    background-color: @transparent;
+    border:           1px 0px 0px 0px solid;
+    border-color:     @glass-subtle;
+    padding:          8px 0px 0px 0px;
+    spacing:          8px;
+}
+
+button {
+    background-color: @transparent;
+    text-color:       @foreground;
+    padding:          6px 12px;
+    border-radius:    8px;
+    border:           1px solid;
+    border-color:     @glass-subtle;
+}
+
+button selected {
+    background-color: rgba(205, 214, 244, 0.15);
+    border-color:     @glass-border;
+}
+
+message {
+    background-color: @transparent;
+    border:           1px 0px 0px 0px solid;
+    border-color:     @glass-subtle;
+    padding:          8px;
+}
+
+textbox {
+    background-color: @transparent;
+    text-color:       @foreground;
+    padding:          4px 8px;
+}

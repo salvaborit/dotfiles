@@ -1,0 +1,57 @@
+[env]
+TERM = "xterm-256color"
+
+[colors.primary]
+background = "#0a0a0a"
+foreground = "#cdd6f4"
+
+[colors.normal]
+black   = "#45475a"
+red     = "#f38ba8"
+green   = "#a6e3a1"
+yellow  = "#f9e2af"
+blue    = "#89b4fa"
+magenta = "#cba6f7"
+cyan    = "#94e2d5"
+white   = "#bac2de"
+
+[colors.bright]
+black   = "#585b70"
+red     = "#f38ba8"
+green   = "#a6e3a1"
+yellow  = "#f9e2af"
+blue    = "#89b4fa"
+magenta = "#cba6f7"
+cyan    = "#94e2d5"
+white   = "#cdd6f4"
+
+[colors.cursor]
+text   = "#1e1e2e"
+cursor = "#cdd6f4"
+
+[font]
+normal = { family = "SFMono Nerd Font" }
+bold = { family = "SFMono Nerd Font" }
+italic = { family = "SFMono Nerd Font" }
+size = 11
+
+[window]
+padding.x = 0
+padding.y = 0
+decorations = "None"
+
+[keyboard]
+bindings = [
+{ key = "F11", action = "ToggleFullscreen" },
+{ key = "Insert", mods = "Shift", action = "Paste" },
+{ key = "Insert", mods = "Control", action = "Copy" }
+]
+
+# override right-click
+[[mouse.bindings]]
+mouse = "Right"
+mods  = "None"
+action = "Paste"          # or "PasteSelection" if you want PRIMARY
+
+[selection]
+save_to_clipboard = true

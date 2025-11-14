@@ -1,0 +1,14 @@
+#!/bin/bash
+# List all available themes
+
+THEMES_DIR="$HOME/.config/themes"
+
+if [[ ! -d "$THEMES_DIR" ]]; then
+  echo "No themes directory found at: $THEMES_DIR"
+  exit 1
+fi
+
+# Find all directories in themes (excluding 'current' symlink target listing)
+find "$THEMES_DIR" -mindepth 1 -maxdepth 1 \( -type d -o -type l \) -not -name "current" | sort | while read -r path; do
+  basename "$path"
+done

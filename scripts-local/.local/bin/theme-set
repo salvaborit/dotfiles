@@ -1,0 +1,49 @@
+#!/bin/bash
+# Set active theme and reload components
+# Usage: theme-set <theme-name>
+
+if [[ -z $1 ]]; then
+  echo "Usage: theme-set <theme-name>"
+  exit 1
+fi
+
+THEMES_DIR="$HOME/.config/themes"
+CURRENT_THEME_LINK="$THEMES_DIR/current"
+
+# Normalize theme name (lowercase, replace spaces with hyphens)
+THEME_NAME=$(echo "$1" | sed -E 's/<[^>]+>//g' | tr '[:upper:]' '[:lower:]' | tr ' ' '-')
+THEME_PATH="$THEMES_DIR/$THEME_NAME"
+
+# Check if theme exists
+if [[ ! -d "$THEME_PATH" ]]; then
+  echo "Error: Theme '$THEME_NAME' does not exist in $THEMES_DIR"
+  echo "Available themes:"
+  theme-list
+  exit 1
+fi
+
+# Update theme symlink
+ln -nsf "$THEME_PATH" "$CURRENT_THEME_LINK"
+echo "Switched to theme: $THEME_NAME"
+
+# Restart components to apply new theme
+if pgrep -x waybar >/dev/null; then
+  killall waybar && waybar >/dev/null 2>&1 &
+fi
+
+if pgrep -x mako >/dev/null; then
+  makoctl reload
+fi
+
+hyprctl reload
+
+# Signal btop to reload config (if running)
+pkill -SIGUSR2 btop 2>/dev/null
+
+# Restart swaybg with new wallpaper
+if pgrep -x swaybg >/dev/null; then
+  pkill swaybg
+  swaybg -i "$CURRENT_THEME_LINK/wallpaper.jpg" -m fill >/dev/null 2>&1 &
+fi
+
+notify-send "Theme Changed" "Now using: $THEME_NAME"

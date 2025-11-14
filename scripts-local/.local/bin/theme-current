@@ -1,0 +1,11 @@
+#!/bin/bash
+# Show current active theme
+
+CURRENT_THEME_LINK="$HOME/.config/themes/current"
+
+if [[ -L "$CURRENT_THEME_LINK" ]]; then
+  basename "$(readlink "$CURRENT_THEME_LINK")"
+else
+  echo "No theme currently set"
+  exit 1
+fi
