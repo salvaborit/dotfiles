@@ -30,6 +30,7 @@ install_hyprland_stack() {
         "qt6-wayland"                   # Qt6 Wayland support
         "xorg-xwayland"                 # X11 compatibility
         "blueberry"                     # Bluetooth manager GUI
+        "wiremix"                       # Audio mixer for PipeWire/PulseAudio
         "imagemagick"                   # Image processing
         "ffmpeg"                        # Video processing (for screenrecord)
         "v4l-utils"                     # Webcam support (for screenrecord)
