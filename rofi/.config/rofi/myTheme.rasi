@@ -1,137 +1,153 @@
 /**
- * rofi -dump-theme output.
- * Rofi version: 2.0.0
- **/
+ * Frosted Glass Rofi Theme
+ * Matches waybar frosted glass aesthetic
+ */
 * {
-    base02:           rgba ( 49, 69, 73, 100 % );
-    base0C:           rgba ( 137, 221, 255, 100 % );
-    base05:           rgba ( 238, 255, 255, 100 % );
-    base0F:           rgba ( 255, 83, 112, 100 % );
-    base08:           rgba ( 240, 113, 120, 100 % );
-    spacing:          0;
-    background-color: transparent;
-    base00:           rgba ( 38, 50, 56, 100 % );
-    base0A:           rgba ( 255, 203, 107, 100 % );
-    base03:           rgba ( 84, 110, 122, 100 % );
-    base0D:           rgba ( 130, 170, 255, 100 % );
-    base06:           rgba ( 238, 255, 255, 100 % );
-    base09:           rgba ( 247, 140, 108, 100 % );
-    base01:           rgba ( 46, 60, 67, 100 % );
-    base0B:           rgba ( 195, 232, 141, 100 % );
-    base04:           rgba ( 178, 204, 214, 100 % );
-    base0E:           rgba ( 199, 146, 234, 100 % );
-    base07:           White;
+    /* Waybar color scheme */
+    background:       #1e1e2e;
+    foreground:       #cdd6f4;
+    accent:           #a55555;
+    transparent:      rgba(0, 0, 0, 0);
+
+    /* Frosted glass colors */
+    glass-bg:         rgba(30, 30, 46, 0.01);  /* 1% opacity like waybar */
+    glass-border:     rgba(205, 214, 244, 0.2); /* 20% opacity border */
+    glass-solid:      rgba(30, 30, 46, 0.9);    /* 90% for solid elements */
+    glass-subtle:     rgba(205, 214, 244, 0.15); /* 15% for subtle borders */
+
+    background-color: @transparent;
+    text-color:       @foreground;
+
+    font:             "SFMono Nerd Font 12";
 }
+
 window {
     transparency:     "real";
-    background-color: rgba ( 38, 50, 56, 80 % );
+    background-color: @glass-bg;
+    border:           1px solid;
+    border-color:     @glass-border;
+    border-radius:    11px;
+    padding:          14px;
+    width:            600px;
 }
+
 mainbox {
-    padding:      30px 0px ;
-    border-color: var(base0D);
-    spacing:      30px ;
-    children:     [ "inputbar","message","mode-switcher","listview" ];
-    border:       1px ;
-    border-radius: 16px;
+    background-color: @transparent;
+    spacing:          14px;
+    padding:          0px;
+    children:         [ "inputbar", "listview", "mode-switcher" ];
 }
+
 inputbar {
-    padding:  0px 30px ;
-    children: [ "prompt","textbox-prompt-colon","entry","case-indicator" ];
+    background-color: @transparent;
+    border:           0px 0px 1px 0px solid;
+    border-color:     @glass-subtle;
+    padding:          8px 4px;
+    spacing:          8px;
+    children:         [ "prompt", "entry" ];
 }
+
 prompt {
-    text-color: var(base0D);
+    background-color: @transparent;
+    text-color:       @foreground;
+    padding:          0px 8px 0px 0px;
 }
-textbox-prompt-colon {
-    margin:     0px 1.0000ch 0px 0px ;
-    expand:     false;
-    str:        ":";
-    text-color: var(base0D);
-}
+
 entry {
-    text-color: var(base07);
+    background-color: @transparent;
+    text-color:       @foreground;
+    placeholder:      "Type to search...";
+    placeholder-color: rgba(205, 214, 244, 0.5);
 }
+
 case-indicator {
-    text-color: var(base0F);
+    background-color: @transparent;
+    text-color:       @accent;
 }
-mode-switcher {
-    border-color: var(base0D);
-    border:       1px 0px ;
-}
-message {
-    border-color: var(base0D);
-    border:       1px 0px ;
-}
-button {
-    padding:          5px ;
-    background-color: var(base03);
-    text-color:       var(base07);
-}
-button selected {
-    background-color: var(base0D);
-}
-textbox {
-    padding:          5px ;
-    background-color: var(base03);
-    text-color:       var(base07);
-}
+
 listview {
-    margin:    0px 10px 0px 30px ;
-    scrollbar: true;
+    background-color: @transparent;
+    padding:          4px 0px;
+    spacing:          2px;
+    scrollbar:        true;
+    lines:            8;
 }
+
 scrollbar {
-    background-color: var(base03);
-    margin:           0px 0px 0px 20px ;
-    handle-width:     10px ;
-    border-color:     var(base0D);
-    handle-color:     var(base0D);
-    border:           0px 1px ;
+    background-color: @transparent;
+    handle-color:     @glass-border;
+    handle-width:     4px;
+    border:           0px;
+    padding:          0px 0px 0px 4px;
 }
+
 element {
-    padding:   5px ;
-    highlight: bold underline ;
-    spacing:   5px ;
-    children:  [ "element-icon","element-text" ];
+    background-color: @transparent;
+    text-color:       @foreground;
+    padding:          6px 8px;
+    spacing:          8px;
+    border-radius:    8px;
+    children:         [ "element-icon", "element-text" ];
 }
-element normal {
-    background-color: transparent;
-}
+
 element normal.normal {
-    text-color: var(base07);
+    background-color: @transparent;
+    text-color:       @foreground;
 }
-element normal.urgent {
-    text-color: var(base0F);
-}
-element normal.active {
-    text-color: var(base0B);
-}
-element selected {
-    background-color: var(base0D);
-}
+
 element selected.normal {
-    text-color: var(base07);
+    background-color: rgba(205, 214, 244, 0.15);
+    text-color:       @foreground;
+    border:           1px solid;
+    border-color:     @glass-border;
 }
-element selected.urgent {
-    text-color: var(base0F);
-}
-element selected.active {
-    text-color: var(base0B);
-}
+
 element alternate.normal {
-    text-color: var(base07);
+    background-color: @transparent;
+    text-color:       @foreground;
 }
-element alternate.urgent {
-    text-color: var(base0F);
-}
-element alternate.active {
-    text-color: var(base0B);
-}
-element-text {
-    background-color: inherit;
-    foreground-color: inherit;
-    text-color:       inherit;
-}
+
 element-icon {
-    background-color: inherit;
-    foreground-color: inherit;
+    background-color: @transparent;
+    size:             1.2em;
+}
+
+element-text {
+    background-color: @transparent;
     text-color:       inherit;
+}
+
+mode-switcher {
+    background-color: @transparent;
+    border:           1px 0px 0px 0px solid;
+    border-color:     @glass-subtle;
+    padding:          8px 0px 0px 0px;
+    spacing:          8px;
+}
+
+button {
+    background-color: @transparent;
+    text-color:       @foreground;
+    padding:          6px 12px;
+    border-radius:    8px;
+    border:           1px solid;
+    border-color:     @glass-subtle;
+}
+
+button selected {
+    background-color: rgba(205, 214, 244, 0.15);
+    border-color:     @glass-border;
+}
+
+message {
+    background-color: @transparent;
+    border:           1px 0px 0px 0px solid;
+    border-color:     @glass-subtle;
+    padding:          8px;
+}
+
+textbox {
+    background-color: @transparent;
+    text-color:       @foreground;
+    padding:          4px 8px;
 }
