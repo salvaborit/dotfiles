@@ -3,7 +3,7 @@
 # SBA dotfiles installation script
 # Installs packages and deploys configs with GNU stow
 
-set -e  # Exit on error
+set -e # Exit on error
 
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SCRIPT_DIR="$DOTFILES_DIR/scripts"
@@ -22,9 +22,9 @@ configure_git
 
 # Check if stow is installed
 if ! command_exists stow; then
-    log_error "GNU stow is not installed!"
-    log_info "Installing stow..."
-    sudo pacman -S --needed stow
+  log_error "GNU stow is not installed!"
+  log_info "Installing stow..."
+  sudo pacman -S --needed stow
 fi
 
 # Install packages
@@ -54,8 +54,8 @@ echo ""
 
 # Optional audio stack
 if ask_yes_no "Install audio stack (Sonic Pi + SuperCollider)?"; then
-    bash "$SCRIPT_DIR/packages/audio.sh"
-    echo ""
+  bash "$SCRIPT_DIR/packages/audio.sh"
+  echo ""
 fi
 
 # Deploy dotfiles with stow
@@ -66,23 +66,24 @@ cd "$DOTFILES_DIR"
 
 # Stow packages
 STOW_PACKAGES=(
-    "shell"
-    "hyprland"
-    "waybar"
-    "terminal"
-    "neovim"
-    "themes"
-    "scripts-local"
-    "applications"
+  "shell"
+  "hyprland"
+  "waybar"
+  "terminal"
+  "neovim"
+  "themes"
+  "scripts-local"
+  "applications"
+  "rofi"
 )
 
 for package in "${STOW_PACKAGES[@]}"; do
-    log_info "Stowing $package..."
-    if stow -v "$package" 2>&1 | grep -q "LINK"; then
-        log_success "$package deployed"
-    else
-        log_warning "$package may already be deployed"
-    fi
+  log_info "Stowing $package..."
+  if stow -v "$package" 2>&1 | grep -q "LINK"; then
+    log_success "$package deployed"
+  else
+    log_warning "$package may already be deployed"
+  fi
 done
 
 echo ""
@@ -112,6 +113,6 @@ echo "  - Theme: ~/.config/themes/main-theme/"
 echo ""
 
 if groups | grep -q docker; then
-    echo "Note: Docker group added. Log out and back in for it to take effect."
-    echo ""
+  echo "Note: Docker group added. Log out and back in for it to take effect."
+  echo ""
 fi
