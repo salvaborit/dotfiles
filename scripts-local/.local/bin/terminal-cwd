@@ -1,0 +1,40 @@
+#!/bin/bash
+# Open terminal in current window's working directory
+# Dependencies: hyprctl (from hyprland), jq
+
+# Get active window PID and class
+active_pid=$(hyprctl activewindow -j | jq -r '.pid // empty')
+
+if [[ -z "$active_pid" ]]; then
+    # No active window - use home
+    alacritty
+    exit 0
+fi
+
+# Get window class and initial CWD
+active_class=$(hyprctl activewindow -j | jq -r '.class // empty')
+cwd=$(readlink "/proc/$active_pid/cwd" 2>/dev/null)
+
+# For terminal windows, try to find the shell's CWD instead of the terminal's
+if [[ "$active_class" =~ (Alacritty|Kitty|WezTerm|foot|konsole|gnome-terminal) ]]; then
+    # Search for shell processes running under the terminal
+    for shell_pid in $(pgrep -P "$active_pid" 2>/dev/null); do
+        # Check if this is a shell process
+        shell_name=$(ps -p "$shell_pid" -o comm= 2>/dev/null)
+        if [[ "$shell_name" =~ ^(bash|sh|zsh|fish|ksh)$ ]]; then
+            shell_cwd=$(readlink "/proc/$shell_pid/cwd" 2>/dev/null)
+            if [[ -n "$shell_cwd" && -d "$shell_cwd" && -x "$shell_cwd" ]]; then
+                cwd="$shell_cwd"
+                break
+            fi
+        fi
+    done
+fi
+
+# Validate accessibility and launch terminal
+if [[ -d "$cwd" && -x "$cwd" ]]; then
+    alacritty --working-directory "$cwd"
+else
+    # Fallback: CWD not accessible (permissions or process dead)
+    alacritty
+fi
