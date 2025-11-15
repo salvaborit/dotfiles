@@ -20,7 +20,7 @@ max-visible=5
 sort=-time
 
 # Default timeout (milliseconds)
-default-timeout=5000
+default-timeout=10000
 
 # Icons
 icons=1
@@ -45,7 +45,7 @@ border-color=#cdd6f433
 progress-color=over #89b4fa
 
 # Grouping
-group-by=app-name
+#group-by=app-name
 
 # Urgency Levels
 
