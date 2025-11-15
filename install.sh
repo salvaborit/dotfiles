@@ -138,6 +138,7 @@ STOW_PACKAGES=(
   "applications"
   "rofi"
   "swayosd"
+  "mako"
 )
 
 STOW_SUCCESS=()
