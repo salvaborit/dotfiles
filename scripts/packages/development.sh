@@ -15,8 +15,14 @@ install_development_tools() {
     "lazygit"
     "neovim"
 
+    "jdk21-openjdk"
+    "java-openjdk"
+    "maven"
+
     "nodejs-lts-jod"
     "npm"
+
+    "dbeaver"
   )
 
   install_packages "${packages[@]}"
