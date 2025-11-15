@@ -14,13 +14,13 @@ border-radius=11
 outer-margin=10
 
 # Maximum notifications visible at once
-max-visible=5
+max-visible=-1
 
 # Sorting (by time, newest first)
 sort=-time
 
 # Default timeout (milliseconds)
-default-timeout=10000
+default-timeout=0
 
 # Icons
 icons=1
