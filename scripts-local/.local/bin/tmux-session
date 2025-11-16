@@ -15,7 +15,7 @@ get_sessions() {
 
 # Create session list for walker
 create_menu() {
-  echo "📝 New Session"
+  echo "📝 New session"
 
   if get_sessions >/dev/null 2>&1; then
     get_sessions | while IFS=: read -r session rest; do
@@ -45,15 +45,15 @@ main() {
   fi
 
   # Use rofi to select session
-  choice=$(create_menu | rofi -dmenu -p "Select tmux sesh")
+  choice=$(create_menu | rofi -dmenu -p "Select a session")
 
   if [ -z "$choice" ]; then
     exit 0
   fi
 
   # Handle new session
-  if [[ "$choice" == "📝 New Session" ]]; then
-    session_name=$(echo "" | rofi -dmenu -p "New sesh name")
+  if [[ "$choice" == "📝 New session" ]]; then
+    session_name=$(echo "" | rofi -dmenu -p "New session name")
     if [ -z "$session_name" ]; then
       exit 0
     fi
