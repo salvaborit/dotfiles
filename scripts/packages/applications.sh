@@ -26,6 +26,7 @@ install_applications() {
   local aur_packages=(
     "satty" # Screenshot annotation tool
     "slack-desktop"
+    "localsend-bin"
   )
 
   install_aur_packages "${aur_packages[@]}"
