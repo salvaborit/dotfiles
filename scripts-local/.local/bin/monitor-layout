@@ -67,7 +67,7 @@ create_menu() {
     local description=$(get_layout_description "$layout_file")
 
     # Mark current layout with checkmark
-    if [[ "$layout_name" == "$current_layout" ]]; then
+    if [[ "$layout_name" == "${current_layout%.conf}" ]]; then
       echo "✓ $description"
     else
       echo "○ $description"
