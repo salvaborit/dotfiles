@@ -12,7 +12,7 @@ STATE_FILE="$HOME/.cache/current-monitor-layout"
 # Get list of available layouts
 get_layouts() {
   if [[ ! -d "$MONITORS_DIR" ]]; then
-    notify-send "Monitor Layout" "No monitor layouts found in $MONITORS_DIR" -u critical
+    notify-send "Monitor layouts" "No monitor layouts found in $MONITORS_DIR" -u critical
     exit 1
   fi
 
@@ -104,7 +104,7 @@ apply_layout() {
   fi
 
   if [[ -z "$layout_file" || ! -f "$layout_file" ]]; then
-    notify-send "Monitor Layout" "Layout not found: $layout_description" -u critical
+    notify-send "Monitor layouts" "Layout not found: $layout_description" -u critical
     exit 1
   fi
 
@@ -115,7 +115,7 @@ apply_layout() {
   sed -i "s|source = ~/.config/hypr/monitors/.*\.conf.*|source = ~/.config/hypr/$layout_path       # Monitor configuration (active layout)|" "$HYPRLAND_CONF"
 
   # Save current layout to state file
-  echo "$layout_name" > "$STATE_FILE"
+  echo "$layout_name" >"$STATE_FILE"
 
   # Apply the layout using hyprctl
   # We need to parse the config file and apply each monitor line
@@ -127,21 +127,21 @@ apply_layout() {
         hyprctl keyword monitor "$monitor_config"
       fi
     fi
-  done < "$layout_file"
+  done <"$layout_file"
 
-  notify-send "Monitor Layout" "Switched to: $(get_layout_description "$layout_file")"
+  notify-send "Monitor layouts" "Switched to: $(get_layout_description "$layout_file")"
 }
 
 # Main logic
 main() {
   # Check if any layouts exist
   if [[ $(get_layouts | wc -l) -eq 0 ]]; then
-    notify-send "Monitor Layout" "No monitor layouts found in $MONITORS_DIR" -u critical
+    notify-send "Monitor layouts" "No monitor layouts found in $MONITORS_DIR" -u critical
     exit 1
   fi
 
   # Use rofi to select layout
-  choice=$(create_menu | rofi -dmenu -p "Monitor Layout")
+  choice=$(create_menu | rofi -dmenu -p "Monitor layouts")
 
   if [[ -z "$choice" ]]; then
     exit 0
