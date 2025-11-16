@@ -188,4 +188,4 @@ dynamic_bindings |
   parse_keycodes |
   parse_bindings |
   prioritize_entries |
-  rofi -dmenu -p 'Keybindings'
+  rofi -dmenu -p 'Keybindings' -theme-str 'window { width: 800px; }'
