@@ -30,9 +30,9 @@ text   = "#1e1e2e"
 cursor = "#cdd6f4"
 
 [font]
-normal = { family = "SFMono Nerd Font" }
-bold = { family = "SFMono Nerd Font" }
-italic = { family = "SFMono Nerd Font" }
+normal = { family = "SFMono Nerd Font", style = "Medium" }
+bold = { family = "SFMono Nerd Font", style = "Bold" }
+italic = { family = "SFMono Nerd Font", style = "Medium Italic" }
 size = 10
 
 [window]
