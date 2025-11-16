@@ -53,10 +53,10 @@ parse_keycodes() {
       code="${BASH_REMATCH[1]}"
 
       case "$code" in
-        272) symbol="LEFT MOUSE BUTTON" ;;
-        273) symbol="RIGHT MOUSE BUTTON" ;;
-        274) symbol="MIDDLE MOUSE BUTTON" ;;
-        *)   symbol="mouse:${code}" ;;
+      272) symbol="LEFT MOUSE BUTTON" ;;
+      273) symbol="RIGHT MOUSE BUTTON" ;;
+      274) symbol="MIDDLE MOUSE BUTTON" ;;
+      *) symbol="mouse:${code}" ;;
       esac
 
       echo "${line/mouse:${code}/$symbol}"
@@ -175,13 +175,9 @@ prioritize_entries() {
     # print "priority<TAB>line"
     printf "%d\t%s\n", prio, line
   }' |
-  sort -k1,1n -k2,2 |
-  cut -f2-
+    sort -k1,1n -k2,2 |
+    cut -f2-
 }
-
-# Calculate menu height (40% of monitor height)
-monitor_height=$(hyprctl monitors -j | jq -r '.[] | select(.focused == true) | .height')
-menu_height=$((monitor_height * 40 / 100))
 
 # Build keycode cache
 build_keymap_cache
@@ -192,4 +188,4 @@ dynamic_bindings |
   parse_keycodes |
   parse_bindings |
   prioritize_entries |
-  walker --dmenu -p 'Keybindings' --width 800 --height "$menu_height"
+  rofi -dmenu -p 'Keybindings'
