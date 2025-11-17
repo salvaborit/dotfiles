@@ -17,6 +17,7 @@ install_applications() {
     "chromium"
     "libreoffice-still"
     "spotify-launcher"
+    "discord"
   )
 
   install_packages "${packages[@]}"
