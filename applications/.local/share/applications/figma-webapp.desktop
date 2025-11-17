@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Figma
+Comment=Figma - UI Design Tool
+Icon=figma
+Exec=chromium --app=https://figma.com
+Categories=Network;WebBrowser;
+StartupNotify=true
+Terminal=false
