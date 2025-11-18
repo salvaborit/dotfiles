@@ -1,0 +1,6 @@
+{
+  "label": "FortiClient ACS",
+  "connect": "/opt/forticlient/fortivpn connect acs",
+  "disconnect": "/opt/forticlient/fortivpn disconnect",
+  "requires_terminal": true
+}

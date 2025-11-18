@@ -1,0 +1,156 @@
+#!/bin/bash
+
+# VPN Manager - Rofi-based VPN connection manager
+# Reads VPN configurations from ~/.local/share/vpn/connections/
+
+VPN_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/vpn/connections"
+
+# Check if VPN directory exists
+if [[ ! -d "$VPN_DIR" ]]; then
+    rofi -e "VPN directory not found: $VPN_DIR"
+    exit 1
+fi
+
+# Function to check if a VPN interface is active
+is_vpn_active() {
+    # Check for common VPN interface patterns
+    ip link show 2>/dev/null | grep -qE '^[0-9]+: (tun|tap|ppp|wg|vpn)[0-9]*:'
+}
+
+# Function to get VPN connection name from interface
+get_active_vpn_interface() {
+    ip link show 2>/dev/null | grep -oE '(tun|tap|ppp|wg|vpn)[0-9]*' | head -n1
+}
+
+# Function to check if specific VPN might be connected
+# This is a best-effort heuristic since we can't always map interface to config
+check_vpn_status() {
+    local config_file="$1"
+    local label="$2"
+
+    # If any VPN interface is up, we assume it might be this one
+    # (FortiClient specific: could check /opt/forticlient/fortivpn status)
+    if is_vpn_active; then
+        # Try FortiClient-specific status check if this is a FortiClient VPN
+        if echo "$config_file" | grep -q "forticlient"; then
+            if command -v /opt/forticlient/fortivpn &>/dev/null; then
+                if /opt/forticlient/fortivpn status 2>/dev/null | grep -q "connected\|STATUS_CONNECTED"; then
+                    echo "connected"
+                    return
+                fi
+            fi
+        fi
+        # Generic check - if VPN interface exists, mark as potentially connected
+        echo "maybe"
+    else
+        echo "disconnected"
+    fi
+}
+
+# Read all VPN configurations and build menu
+declare -A vpn_configs
+declare -a menu_items
+
+for config_file in "$VPN_DIR"/*.json; do
+    [[ -f "$config_file" ]] || continue
+
+    # Parse JSON config
+    label=$(jq -r '.label' "$config_file" 2>/dev/null)
+    [[ -z "$label" || "$label" == "null" ]] && continue
+
+    # Check status
+    status=$(check_vpn_status "$config_file" "$label")
+
+    # Build menu item
+    case "$status" in
+        connected)
+            menu_item="󰖂  $label (Connected)"
+            ;;
+        maybe)
+            menu_item="󰖂  $label (Active?)"
+            ;;
+        *)
+            menu_item="󰖂  $label"
+            ;;
+    esac
+
+    menu_items+=("$menu_item")
+    vpn_configs["$menu_item"]="$config_file"
+done
+
+# Show rofi menu
+if [[ ${#menu_items[@]} -eq 0 ]]; then
+    rofi -e "No VPN configurations found in $VPN_DIR"
+    exit 1
+fi
+
+selected=$(printf '%s\n' "${menu_items[@]}" | rofi -dmenu -i -p "VPN" -theme-str 'window {width: 400px;}')
+
+[[ -z "$selected" ]] && exit 0
+
+# Get selected config
+config_file="${vpn_configs[$selected]}"
+
+# Parse config
+label=$(jq -r '.label' "$config_file")
+connect_cmd=$(jq -r '.connect' "$config_file")
+disconnect_cmd=$(jq -r '.disconnect' "$config_file")
+requires_terminal=$(jq -r '.requires_terminal // false' "$config_file")
+
+# Ask user action
+action=$(printf "Connect\nDisconnect" | rofi -dmenu -i -p "Action for $label")
+
+[[ -z "$action" ]] && exit 0
+
+case "$action" in
+    Connect)
+        if [[ "$requires_terminal" == "true" ]]; then
+            # Run in terminal for password/OTP prompts
+            alacritty --title "VPN: $label" -e bash -c "
+                echo 'Connecting to $label...'
+                echo 'Command: $connect_cmd'
+                echo ''
+                $connect_cmd
+                exit_code=\$?
+                echo ''
+                if [ \$exit_code -eq 0 ]; then
+                    echo 'Connection command completed successfully.'
+                else
+                    echo 'Connection command failed with exit code: '\$exit_code
+                fi
+                echo ''
+                echo 'Press Enter to close this window...'
+                read
+            "
+        else
+            # Run in background
+            eval "$connect_cmd" &
+            notify-send "VPN" "Connecting to $label..."
+        fi
+        ;;
+    Disconnect)
+        if [[ "$requires_terminal" == "true" ]]; then
+            # Run in terminal
+            alacritty --title "VPN: $label" -e bash -c "
+                echo 'Disconnecting from $label...'
+                echo 'Command: $disconnect_cmd'
+                echo ''
+                $disconnect_cmd
+                exit_code=\$?
+                echo ''
+                if [ \$exit_code -eq 0 ]; then
+                    echo 'Disconnection successful.'
+                else
+                    echo 'Disconnection failed with exit code: '\$exit_code
+                fi
+                echo ''
+                echo 'Press Enter to close this window...'
+                read
+            "
+        else
+            # Run in background
+            eval "$disconnect_cmd" &
+            notify-send "VPN" "Disconnecting from $label..."
+        fi
+        ;;
+esac

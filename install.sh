@@ -136,6 +136,7 @@ STOW_PACKAGES=(
   "neovim"
   "themes"
   "scripts-local"
+  "local"
   "applications"
   "rofi"
   "swayosd"
