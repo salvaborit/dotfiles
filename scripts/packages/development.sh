@@ -25,6 +25,8 @@ install_development_tools() {
     "npm"
 
     "dbeaver"
+
+    "subversion"
   )
 
   install_packages "${packages[@]}"
