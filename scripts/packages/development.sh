@@ -19,6 +19,7 @@ install_development_tools() {
 
     "jdk21-openjdk"
     "jdk-openjdk"
+    "jdk8-openjdk"
     "maven"
 
     "nodejs-lts-jod"
