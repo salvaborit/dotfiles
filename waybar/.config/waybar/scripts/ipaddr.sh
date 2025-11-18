@@ -7,9 +7,10 @@ if echo "$iface" | grep -q '^wl'; then
   icon="󰤨 "
 elif echo "$iface" | grep -q '^en'; then
   icon="󰀂 "
+elif echo "$iface" | grep -q 'vpn'; then
+  icon="󰖂 "
 else
   icon="󰤮 "
 fi
 
 echo " $icon $ipaddr "
-
