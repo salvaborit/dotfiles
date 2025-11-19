@@ -1,0 +1,16 @@
+#!/bin/bash
+# Launch Alacritty with a new tmux session named "bash" (or bash-N if exists)
+
+# Check if "bash" session exists
+if ! tmux has-session -t bash 2>/dev/null; then
+    # Create the first "bash" session
+    alacritty -e tmux new-session -s bash &
+else
+    # Find the next available bash-N session name
+    counter=1
+    while tmux has-session -t "bash-$counter" 2>/dev/null; do
+        ((counter++))
+    done
+    # Create new session with incremented name
+    alacritty -e tmux new-session -s "bash-$counter" &
+fi
