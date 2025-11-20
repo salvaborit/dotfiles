@@ -5,6 +5,8 @@
   "spacing": 0,
   "height": 26,
   "modules-left": [
+    "custom/bluetooth-battery",
+    "custom/separator",
     "group/ipaddr-box",
     "custom/separator",
     "hyprland/workspaces",
@@ -232,5 +234,12 @@
     "format": "│",
     "interval": "once",
     "tooltip": false
+  },
+
+  "custom/bluetooth-battery": {
+    "exec": "~/.config/waybar/scripts/bluetooth-battery.sh",
+    "return-type": "json",
+    "interval": 60,
+    "tooltip": true
   },
 }

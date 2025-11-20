@@ -143,3 +143,16 @@ tooltip {
     font-size: 14px;
 }
 
+#custom-bluetooth-battery {
+  margin-left: 8px;
+    margin-right: 10px;
+}
+
+#custom-bluetooth-battery.warning {
+    color: #f9e2af;
+}
+
+#custom-bluetooth-battery.critical {
+    color: #f38ba8;
+}
+

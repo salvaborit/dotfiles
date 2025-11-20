@@ -18,6 +18,7 @@ install_core_packages() {
     "less"
     "ufw"
     "man-db"
+    "upower"
   )
 
   install_packages "${packages[@]}"
