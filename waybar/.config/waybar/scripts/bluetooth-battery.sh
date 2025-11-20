@@ -78,8 +78,17 @@ while IFS= read -r device_path; do
         battery_icon="󰂃"
     fi
 
-    # Build device text: "icon 100%"
-    device_texts+=("$icon ${percentage}%")
+    # Determine color based on battery level
+    if [ "$percentage" -le 20 ]; then
+        color="#f38ba8"  # critical - red
+    elif [ "$percentage" -le 40 ]; then
+        color="#f9e2af"  # warning - yellow
+    else
+        color="#cdd6f4"  # normal - foreground color
+    fi
+
+    # Build device text with color: "<span color='#xxx'>icon 100%</span>"
+    device_texts+=("<span color='$color'>$icon ${percentage}%</span>")
 
     # Build tooltip line with full device name
     tooltip_lines+=("$icon $model: ${percentage}% $battery_icon")
@@ -104,26 +113,9 @@ ${tooltip_lines[$i]}"
     fi
 done
 
-# Determine CSS class based on lowest battery percentage
-lowest_battery=100
-for device_text in "${device_texts[@]}"; do
-    current_percentage=$(echo "$device_text" | grep -oE '[0-9]+' | tail -1)
-    if [ "$current_percentage" -lt "$lowest_battery" ]; then
-        lowest_battery=$current_percentage
-    fi
-done
-
-if [ "$lowest_battery" -le 20 ]; then
-    css_class="critical"
-elif [ "$lowest_battery" -le 40 ]; then
-    css_class="warning"
-else
-    css_class="normal"
-fi
-
 # Output JSON for waybar using jq for proper escaping (compact output)
+# Note: Colors are handled via Pango markup in the text itself
 jq -nc \
     --arg text "$text" \
     --arg tooltip "$tooltip" \
-    --arg class "$css_class" \
-    '{text: $text, tooltip: $tooltip, class: $class}'
+    '{text: $text, tooltip: $tooltip}'

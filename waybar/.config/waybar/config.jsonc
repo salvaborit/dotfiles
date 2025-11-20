@@ -240,6 +240,8 @@
     "exec": "~/.config/waybar/scripts/bluetooth-battery.sh",
     "return-type": "json",
     "interval": 60,
-    "tooltip": true
+    "tooltip": true,
+    "format": "{}",
+    "markup": true
   },
 }
