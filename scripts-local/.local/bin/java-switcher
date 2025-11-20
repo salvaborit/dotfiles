@@ -1,0 +1,59 @@
+#!/usr/bin/env bash
+# Java version switcher using rofi
+# Switch between installed Java environments via archlinux-java
+
+set -euo pipefail
+
+# Get current Java version
+get_current_java() {
+  archlinux-java get 2>/dev/null || echo ""
+}
+
+# Create menu with Java versions
+create_menu() {
+  local current=$(get_current_java)
+
+  archlinux-java status | grep -E '^\s+java-' | while read -r line; do
+    local version=$(echo "$line" | sed -E 's/^\s+//' | sed 's/ (default)//')
+
+    if echo "$line" | grep -q "(default)"; then
+      echo "✓ ☕ $version"
+    else
+      echo "○ ☕ $version"
+    fi
+  done
+}
+
+# Switch Java version
+switch_java() {
+  local selection="$1"
+  local version=$(echo "$selection" | sed -E 's/^[✓○] ☕ //')
+  local current=$(get_current_java)
+
+  if [[ "$version" == "$current" ]]; then
+    notify-send "Java Version" "Already using $version"
+    exit 0
+  fi
+
+  if sudo archlinux-java set "$version"; then
+    notify-send "Java Version" "Switched to $version" -i java
+    # Display new Java version
+    java -version 2>&1 | head -n1 | xargs -I {} notify-send "Java Version Info" "{}"
+  else
+    notify-send "Java Version" "Failed to switch to $version" -u critical
+    exit 1
+  fi
+}
+
+# Main
+main() {
+  choice=$(create_menu | rofi -dmenu -p "Select Java Version")
+
+  if [[ -z "$choice" ]]; then
+    exit 0
+  fi
+
+  switch_java "$choice"
+}
+
+main "$@"

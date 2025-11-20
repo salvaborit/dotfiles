@@ -224,6 +224,17 @@ echo ""
 log_success "Dotfiles deployment complete!"
 echo ""
 
+# Configure sudoers for passwordless archlinux-java
+log_info "Configuring sudoers for passwordless Java version switching..."
+if [ ! -f /etc/sudoers.d/archlinux-java ]; then
+  echo '%wheel ALL=(ALL) NOPASSWD: /usr/bin/archlinux-java' | sudo tee /etc/sudoers.d/archlinux-java > /dev/null
+  sudo chmod 440 /etc/sudoers.d/archlinux-java
+  log_success "Sudoers rule created for archlinux-java"
+else
+  log_info "Sudoers rule for archlinux-java already exists"
+fi
+echo ""
+
 # Final instructions
 echo "======================================"
 echo "Installation Complete!"
