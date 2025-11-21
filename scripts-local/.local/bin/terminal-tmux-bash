@@ -1,16 +1,18 @@
 #!/bin/bash
-# Launch Alacritty with a new tmux session named "bash" (or bash-N if exists)
+# Launch Alacritty with a new tmux session named "bash-WORD" with random word
 
-# Check if "bash" session exists
-if ! tmux has-session -t bash 2>/dev/null; then
-    # Create the first "bash" session
-    alacritty -e tmux new-session -s bash &
-else
-    # Find the next available bash-N session name
-    counter=1
-    while tmux has-session -t "bash-$counter" 2>/dev/null; do
-        ((counter++))
-    done
-    # Create new session with incremented name
-    alacritty -e tmux new-session -s "bash-$counter" &
-fi
+WORDLIST="$HOME/.local/share/wordlists/mit-top-10000-en.txt"
+
+# Find a random word that doesn't conflict with existing sessions
+while true; do
+    # Get a random word from the wordlist
+    word=$(shuf -n 1 "$WORDLIST")
+
+    # Check if this session name is available
+    if ! tmux has-session -t "bash-$word" 2>/dev/null; then
+        # Create new session with random word
+        alacritty -e tmux new-session -s "bash-$word" &
+        break
+    fi
+    # If session exists, loop will retry with a new random word
+done
