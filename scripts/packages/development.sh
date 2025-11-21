@@ -25,6 +25,8 @@ install_development_tools() {
     "dbeaver"
     "subversion"
     "gemini-cli"
+    "lftp"
+    "firefox"
   )
 
   install_packages "${packages[@]}"
