@@ -13,6 +13,7 @@ install_development_tools() {
     "lazygit"
     "subversion"
     "lftp"
+    "tcpdump"
 
     #docker
     "docker"
@@ -43,6 +44,13 @@ install_development_tools() {
     "iptables-nft"
     "edk2-ovmf"
   )
+
+  # Handle iptables → iptables-nft transition
+  # Remove classic iptables if installed to allow iptables-nft installation
+  if pacman -Qq iptables &>/dev/null && ! pacman -Qq iptables-nft &>/dev/null; then
+    log_info "Removing classic iptables to allow iptables-nft installation..."
+    sudo pacman -Rdd --noconfirm iptables
+  fi
 
   install_packages "${packages[@]}"
 
@@ -81,12 +89,13 @@ install_development_tools() {
       sudo systemctl start docker.socket
     fi
 
-    # Add user to docker group if not already
+    # Add user to docker, libvirt groups if not already
     if ! groups | grep -q docker; then
-      log_info "Adding $USER to docker group..."
-      sudo usermod -aG docker "$USER"
+      log_info "Adding $USER to docker, libvirt groups..."
+      sudo usermod -aG docker,libvirt "$USER"
       log_warning "You'll need to log out and back in for docker group to take effect"
     fi
+
   fi
 }
 

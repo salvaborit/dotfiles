@@ -59,4 +59,7 @@ export PS1='\u@\h \[\033[1;34m\]\w\[\033[0m\] \[\033[1;33m\]$(parse_git_branch)$
 eval "$(starship init bash)"
 export STARSHIP_CONFIG=~/.config/starship.toml
 
+# always use system connection for libvirt network
+export LIBVIRT_DEFAULT_URI="qemu:///system"
+
 export PATH="$HOME/.local/bin:$PATH"
