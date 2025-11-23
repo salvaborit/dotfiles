@@ -224,6 +224,32 @@ echo ""
 log_success "Dotfiles deployment complete!"
 echo ""
 
+# Stow keyd to /etc/ (requires sudo)
+log_info "Deploying keyd configuration to /etc/keyd/..."
+# First unstow any old keyd config
+sudo stow --delete --target=/ keyd 2>/dev/null || true
+# Stow fresh
+if sudo stow --restow --target=/ --verbose=2 keyd 2>&1; then
+  log_success "keyd configuration deployed to /etc/keyd/"
+else
+  log_error "Failed to deploy keyd configuration"
+fi
+echo ""
+
+# Configure keyd systemd service
+log_info "Configuring keyd service..."
+if systemctl is-active --quiet keyd; then
+  log_info "Restarting keyd to apply configuration..."
+  sudo systemctl restart keyd
+  log_success "keyd service restarted"
+else
+  log_info "Enabling and starting keyd service..."
+  sudo systemctl enable keyd
+  sudo systemctl start keyd
+  log_success "keyd service enabled and started"
+fi
+echo ""
+
 # Configure sudoers for passwordless archlinux-java
 log_info "Configuring sudoers for passwordless Java version switching..."
 if [ ! -f /etc/sudoers.d/archlinux-java ]; then
@@ -248,6 +274,7 @@ echo "Tips:"
 echo "  - Reload shell: source ~/.bashrc"
 echo "  - Reload Hyprland: Super+Shift+R (if bound) or hyprctl reload"
 echo "  - Reload Waybar: killall waybar && waybar &"
+echo "  - Reload keyd: sudo systemctl restart keyd"
 echo "  - Custom keybindings: See ~/.config/hypr/bindings.conf"
 echo ""
 echo "Configuration files:"
@@ -255,6 +282,7 @@ echo "  - Hyprland: ~/.config/hypr/"
 echo "  - Waybar: ~/.config/waybar/"
 echo "  - Shell: ~/.bashrc"
 echo "  - Theme: ~/.config/themes/main-theme/"
+echo "  - Keyd: /etc/keyd/default.conf"
 echo ""
 
 if groups | grep -q docker; then

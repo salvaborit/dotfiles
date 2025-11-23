@@ -36,6 +36,7 @@ install_hyprland_stack() {
     "imagemagick"                 # Image processing
     "ffmpeg"                      # Video processing (for screenrecord)
     "v4l-utils"                   # Webcam support (for screenrecord)
+    "keyd"                        # System-wide key remapping daemon
   )
 
   install_packages "${packages[@]}"
