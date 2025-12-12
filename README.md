@@ -177,7 +177,6 @@ Binding files:
 - `Super+Shift+D` - Docker (lazydocker)
 - `Super+Shift+M` - Music (Spotify)
 - `Super+Shift+L` - LocalSend
-- `Super+Shift+G` - Signal
 - `Super+Shift+/` - Passwords (proton-pass)
 - `Super+Shift+S` - Screenshot (Alt: fullscreen)
 
