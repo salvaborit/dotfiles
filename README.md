@@ -38,32 +38,114 @@ dotfiles/
 
 ## Core Stack
 
-### Window Manager & UI
-- **Hyprland** - Wayland compositor
-- **Waybar** - Status bar with system monitoring
-- **Rofi** - Menu
-- **Mako** - Notification daemon
+### Core System (`core.sh`)
+- **git**
+- **base-devel** - Build tools (make, gcc)
+- **vim**
+- **tree**
+- **unzip**
+- **less**
+- **ufw**
+- **man-db**
+- **upower** - Power management
 
-### Terminal/Shell
+### Window Manager & UI (`hyprland.sh`)
+- **Hyprland** - Wayland compositor
+- **Waybar** - Status bar
+- **Rofi** - App launcher and menus
+- **Mako** - Notification daemon
+- **Swaylock** - Screen locker (legacy)
+- **Hyprlock** - Screen locker (Hyprland-native)
+- **Hypridle** - Idle management
+- **Hyprsunset** - Screen temperature (night light)
+- **Swaybg** - Wallpaper daemon
+- **Grim** - Screenshot capture
+- **Slurp** - Region selector
+- **Satty** - Screenshot annotation
+- **wl-clipboard** - Clipboard manager
+- **jq** - JSON processor for scripts
+- **polkit-kde-agent** - Authentication dialogs
+- **xdg-desktop-portal-hyprland** - Desktop integration
+- **Qt5/Qt6 Wayland** - Qt app support
+- **Xwayland** - X11 compatibility
+- **Blueberry** - Bluetooth manager
+- **Wiremix** - Audio mixer
+- **Brightnessctl** - Brightness control
+- **SwayOSD** - On-screen display
+- **ImageMagick** - Image processing
+- **FFmpeg** - Video processing
+- **v4l-utils** - Webcam support
+- **Keyd** - System-wide key remapping
+- **gpu-screen-recorder** (AUR) - Hardware accelerated recording
+- **wayfreeze** (AUR) - Screen freeze for screenshots
+
+### Terminal & Shell (`terminal.sh`)
 - **Alacritty** - Terminal
 - **Starship** - Shell prompt
-- **Bash** - Shell with some aliases
+- **Btop** - System monitor
+- **Cava** - Audio visualizer
+- **Eza** - ls
+- **Tmux** - Terminal multiplexer
 
-### Development Tools
-- **Docker** + lazydocker
-- **Git** + lazygit
-- **Vim** - Text editor
+### Development Tools (`development.sh`)
+- **Neovim** - Editor
+- **Lazygit** - Git TUI
+- **Subversion** - SVN version control
+- **LFTP** - FTP client
+- **Tcpdump** - Network packet analyzer
+- **Zip** - Archive creation
+- **GHC** - Haskell compiler
+- **Docker/Compose/Buildx** - Container platform
+- **Lazydocker** - Docker TUI
+- **JDK 8/21/latest** - JDKs
+- **Maven** - Java build tool
+- **Ant** - Java build tool
+- **Netbeans** - Java IDE
+- **Node.js LTS** - JavaScript runtime
+- **npm** - Node package manager
+- **DBeaver** - Database GUI
+- **Gemini CLI** - Google AI assistant
+- **Firefox** - Web browser
+- **QEMU** - Machine emulator
+- **Libvirt/Virt-manager** - VM management
+- **WireGuard** - VPN
+- **Postman** (AUR) - API testing
+- **IntelliJ IDEA Ultimate** (AUR) - Java IDE
+- **TLClient** (AUR) - Remote desktop
 
-### Applications
+### Applications (`applications.sh`)
+- **Obsidian** - Notes
+- **Fastfetch** - System info display
+- **Nautilus** - File browser
 - **Chromium** - Web browser
-- **Obsidian** - Note taking
-- **Nautilus** - File manager
+- **LibreOffice**
+- **Spotify**
+- **Discord**
+- **VLC** - Media player
+- **power-profiles-daemon** - Power management
+- **Slack** (AUR)
+- **LocalSend** (AUR) - Local file sharing
+- **Teams** (AUR) - MS Teams
+- **FortiClient VPN** (AUR)
+- **Zoom** (AUR)
+- **Balena Etcher** (AUR)
+
+### Fonts (`fonts.sh`)
+- **Cascadia Code Nerd** - Microsoft's coding font
+- **Fira Code Nerd** - Ligature font
+- **JetBrains Mono Nerd** - JetBrains font
+- **SF Mono Nerd** (custom) - Apple's monospace font
+
+### Audio (`audio.sh`) - optional
+- **SuperCollider** - Audio synthesis
+- **PipeWire** - Audio server
+- **Sonic Pi** (AUR) - Live coding music
 
 ## Configuration
 
 ### Hyprland
 
-All Hyprland configs are in `~/.config/hypr/`:
+All Hyprland configs in `~/.config/hypr/`:
 - `hyprland.conf` - Main config (sources all others)
 - `bindings.conf` - Keybindings (Super+Shift+Letter pattern)
 - `monitors.conf` - Multi-monitor setup
@@ -81,9 +163,9 @@ All application bindings use Super+Shift+Letter:
 - `Super+Shift+F` - File manager
 - `Super+Shift+B` - Browser
 - `Super+Shift+O` - Obsidian
-- `Super+Shift+T` - System monitor (btop)
+- `Super+Shift+P` - System monitor (btop)
 - `Super+Shift+D` - Docker manager
-- `Super+Shift+A` - Claude AI
+- `Super+Shift+A` - AI (add alt for alt AI)
 - `Super+Space` - App launcher
 
 See `~/.config/hypr/bindings.conf` for complete list.
