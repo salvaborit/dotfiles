@@ -36,7 +36,7 @@ dotfiles/
     └── packages/       # Per-program installers
 ```
 
-## Core Stack
+## Stack (1118 pacman packages)
 
 ### Core System (`core.sh`)
 - **git**
@@ -145,61 +145,113 @@ dotfiles/
 
 ### Hyprland
 
-All Hyprland configs in `~/.config/hypr/`:
-- `hyprland.conf` - Main config (sources all others)
-- `bindings.conf` - Keybindings (Super+Shift+Letter pattern)
-- `monitors.conf` - Multi-monitor setup
-- `looknfeel.conf` - Appearance (gaps, rounding, blur)
-- `input.conf` - Keyboard and mouse
+Config files in `~/.config/hypr/`:
+- `hyprland.conf` - Main (sources all others)
 - `envs.conf` - Environment variables
-- `autostart.conf` - Startup applications
+- `input.conf` - Keyboard/mouse
+- `monitors/` - Monitor layouts
+- `looknfeel.conf` - Appearance
+- `autostart.conf` - Startup apps
 
-**Reload config**: `hyprctl reload`
+Binding files:
+- `bindings.conf` - Application launchers
+- `tiling-bindings.conf` - Window/workspace management
+- `clipboard-bindings.conf` - Universal copy/paste
+- `media-bindings.conf` - Volume/brightness/media
+- `utility-bindings.conf` - Menus/toggles/notifications
+- `zoom-bindings.conf` - Screen zoom
+
+**Reload**: `hyprctl reload`
 
 ### Keybindings
 
-All application bindings use Super+Shift+Letter:
-- `Super+Return` - Terminal (in current directory)
+**Applications** (Super+Shift+Letter):
+- `Super+Return` - Terminal (cwd)
+- `Super+Shift+Return` - Terminal (tmux)
+- `Super+Space` - App launcher (rofi)
 - `Super+Shift+F` - File manager
-- `Super+Shift+B` - Browser
+- `Super+Shift+B` - Browser (Alt: private)
+- `Super+Shift+N` - Neovim
 - `Super+Shift+O` - Obsidian
-- `Super+Shift+P` - System monitor (btop)
-- `Super+Shift+D` - Docker manager
-- `Super+Shift+A` - AI (add alt for alt AI)
-- `Super+Space` - App launcher
+- `Super+Shift+P` - btop (Alt: htop, Ctrl: fastfetch)
+- `Super+Shift+D` - Docker (lazydocker)
+- `Super+Shift+M` - Music (Spotify)
+- `Super+Shift+A` - Claude (Alt: ChatGPT)
+- `Super+Shift+S` - Screenshot (Alt: fullscreen)
+- `Super+Alt+Space` - Tmux session menu
+- `Super+Ctrl+Space` - Tmux project launcher menu
 
-See `~/.config/hypr/bindings.conf` for complete list.
+**Window Management**:
+- `Super+W` - Close window
+- `Super+F` - Fullscreen (Ctrl: tiled, Alt: full width)
+- `Super+T` - Toggle floating
+- `Super+J` - Toggle split
+- `Super+Arrows` - Move focus
+- `Super+Shift+Arrows` - Swap windows
+- `Super+1-9` - Switch workspace
+- `Super+Shift+1-9` - Move to workspace
+- `Super+Tab` - Next workspace (Shift: prev, Ctrl: previous)
+- `Super+S` - Scratchpad (Alt+S: move to scratchpad)
+- `Super+-/=` - Resize window
+- `Super+Mouse` - Move/resize
+
+**Groups**:
+- `Super+G` - Toggle group
+- `Super+Alt+Arrows` - Join group
+- `Super+Alt+Tab` - Cycle group windows
+
+**Clipboard**:
+- `Super+C` - Copy
+- `Super+V` - Paste
+- `Super+X` - Cut
+
+**Media** (laptop keys):
+- Volume up/down/mute
+- Brightness up/down
+- Play/pause/next/prev
+- Alt+key for 5% increments
+
+**Utilities**:
+- `Super+Escape` - System menu
+- `Super+K` - Show keybindings
+- `Super+M` - Monitor layout
+- `Super+D` - Show desktop
+- `Super+Backspace` - Toggle window transparency
+- `Super+Shift+Ctrl+Space` - Toggle waybar
+- `Super+,` - Dismiss notification (Shift: all, Ctrl: toggle DND)
+
+**Zoom** (Super+Mod):
+- `Super+Mod+scroll` - Zoom in/out
+- `Super+Mod++/-` - Zoom in/out
+- `Super+Mod+Shift+0` - Reset zoom
 
 ### Waybar
 
-Configuration: `~/.config/waybar/config.jsonc`
-Styling: `~/.config/waybar/style.css`
-Scripts: `~/.config/waybar/scripts/`
+- Config: `~/.config/waybar/config.jsonc`
+- Style: `~/.config/waybar/style.css`
+- Scripts: `~/.config/waybar/scripts/`
 
 **Reload**: `killall waybar && waybar &`
 
 ### Theme System
 
-Centralized theme in `~/.config/themes/main-theme/`:
-- `colors.conf` - Central color definitions
+Location: `~/.config/themes/main-theme/`
+- `colors.conf` - Color scheme
 - `wallpapers/` - Background images
-- Per-app theme overrides
 
-To change wallpaper:
-1. Add image to `~/.config/themes/main-theme/wallpapers/`
-2. Update `~/.config/hypr/autostart.conf`
+Wallpaper set via `autostart.conf` using swaybg
 
 ## Installation Scripts
 
 Modular package installers in `scripts/packages/`:
 - `core.sh` - Base system (git, vim, yay, etc)
-- `hyprland.sh` - Compositor
+- `hyprland.sh` - Compositor and UI
 - `terminal.sh` - Terminal tools
 - `development.sh` - Dev tools
 - `applications.sh` - User applications
 - `fonts.sh` - Nerd fonts
 - `audio.sh` - Sonic Pi (optional)
-- `claude.sh` - Claude
+- `claude.sh` - Claude Code CLI
 
 They can be run individually.
 
@@ -231,11 +283,18 @@ bindd = SUPER SHIFT, X, Description, exec, your-command
 
 ### Multi-Monitor Setup
 
-Edit `~/.config/hypr/monitors.conf`:
-```conf
-monitor = HDMI-A-1, 1920x1080@60, 0x0, 1
-monitor = eDP-1, 1920x1080@60, 0x1080, 1
-```
+Preset layouts in `~/.config/hypr/monitors/`:
+- `1a.conf` - 1 Display (integrated)
+- `2a.conf` - 2 Displays
+- `3a.conf` - 3 Displays
+- `4a.conf`, `4b.conf` - 4 Display variants
+
+Switch layouts: `Super+M` (rofi menu)
+
+To add a new layout:
+1. Create `~/.config/hypr/monitors/name.conf`
+2. Add `# Layout: Description` as first line
+3. Define monitor lines
 
 ## Troubleshooting
 
