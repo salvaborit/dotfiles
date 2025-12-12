@@ -177,7 +177,6 @@ install_aur_packages() {
   local packages=("$@")
   local to_install=()
 
-  # ensure yay is installed
   if ! command_exists yay; then
     install_yay || return 1
   fi
