@@ -14,6 +14,11 @@ install_development_tools() {
     "subversion"
     "lftp"
     "tcpdump"
+    "zip"
+
+    # glasgow haskell compiler
+    "ghc"
+    "ghc-libs"
 
     #docker
     "docker"
@@ -26,6 +31,8 @@ install_development_tools() {
     "jdk-openjdk"
     "jdk8-openjdk"
     "maven"
+    "netbeans"
+    "ant"
 
     #js
     "nodejs-lts-jod"
@@ -43,6 +50,10 @@ install_development_tools() {
     "dnsmasq"
     "iptables-nft"
     "edk2-ovmf"
+
+    # vpn
+    "wireguard-tools"
+    "systemd-resolvconf"
   )
 
   # Handle iptables → iptables-nft transition
@@ -60,6 +71,7 @@ install_development_tools() {
     "postman-bin"
     "intellij-idea-ultimate-edition"
     "tlclient"
+    "netbeans-bin"
   )
 
   install_aur_packages "${aur_packages[@]}"

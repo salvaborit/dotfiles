@@ -17,6 +17,9 @@ install_applications() {
     "libreoffice-still"
     "spotify-launcher"
     "discord"
+    "vlc"
+    "vlc-plugin-ffmpeg"
+    "power-profiles-daemon"
   )
 
   install_packages "${packages[@]}"
@@ -30,6 +33,7 @@ install_applications() {
     "teams-for-linux"
     "forticlient-vpn"
     "zoom"
+    "balena-etcher"
   )
 
   install_aur_packages "${aur_packages[@]}"
