@@ -187,16 +187,6 @@ alias mycommand='...'
 
 Reload: `source ~/.bashrc`
 
-## Migration from Omarchy
-
-This setup replaces all Omarchy dependencies:
-- No more `omarchy-launch-*` commands (replaced with custom wrappers)
-- No more `omarchy-menu` (using walker directly)
-- No more Omarchy theme overlays (minimal theme instead)
-- Direct Hyprland configuration (no Omarchy defaults)
-
-Old configs backed up during migration for reference.
-
 ## Troubleshooting
 
 ### Hyprland won't start
