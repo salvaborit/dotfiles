@@ -176,29 +176,49 @@ Binding files:
 - `Super+Shift+P` - btop (Alt: htop, Ctrl: fastfetch)
 - `Super+Shift+D` - Docker (lazydocker)
 - `Super+Shift+M` - Music (Spotify)
-- `Super+Shift+A` - Claude (Alt: ChatGPT)
+- `Super+Shift+L` - LocalSend
+- `Super+Shift+G` - Signal
+- `Super+Shift+/` - Passwords (proton-pass)
 - `Super+Shift+S` - Screenshot (Alt: fullscreen)
+
+**Web Apps** (Super+Shift):
+- `Super+Shift+A` - Claude (Alt: ChatGPT)
+- `Super+Shift+C` - Calendar
+- `Super+Shift+G` - GitHub
+- `Super+Shift+Y` - YouTube
+- `Super+Shift+W` - WhatsApp
+- `Super+Shift+X` - X (Alt: X Post)
+
+**Menus**:
 - `Super+Alt+Space` - Tmux session menu
-- `Super+Ctrl+Space` - Tmux project launcher menu
+- `Super+Ctrl+Space` - Tmux project launcher
+- `Super+Alt+J` - Java version switcher
+- `Super+Alt+V` - VPN Manager
+- `XF86Calculator` - Calculator
+- `XF86Launch5` - Power profile
 
 **Window Management**:
 - `Super+W` - Close window
 - `Super+F` - Fullscreen (Ctrl: tiled, Alt: full width)
 - `Super+T` - Toggle floating
 - `Super+J` - Toggle split
+- `Super+P` - Pseudo window
 - `Super+Arrows` - Move focus
 - `Super+Shift+Arrows` - Swap windows
 - `Super+1-9` - Switch workspace
 - `Super+Shift+1-9` - Move to workspace
 - `Super+Tab` - Next workspace (Shift: prev, Ctrl: previous)
+- `Alt+Tab` - Cycle windows
 - `Super+S` - Scratchpad (Alt+S: move to scratchpad)
 - `Super+-/=` - Resize window
 - `Super+Mouse` - Move/resize
 
 **Groups**:
 - `Super+G` - Toggle group
+- `Super+Alt+G` - Move out of group
 - `Super+Alt+Arrows` - Join group
 - `Super+Alt+Tab` - Cycle group windows
+- `Super+Alt+1-5` - Switch to group window
 
 **Clipboard**:
 - `Super+C` - Copy
@@ -206,10 +226,9 @@ Binding files:
 - `Super+X` - Cut
 
 **Media** (laptop keys):
-- Volume up/down/mute
-- Brightness up/down
+- Volume up/down/mute (Alt: 5% increments)
+- Brightness up/down (Alt: 5% increments)
 - Play/pause/next/prev
-- Alt+key for 5% increments
 
 **Utilities**:
 - `Super+Escape` - System menu
@@ -218,12 +237,10 @@ Binding files:
 - `Super+D` - Show desktop
 - `Super+Backspace` - Toggle window transparency
 - `Super+Shift+Ctrl+Space` - Toggle waybar
-- `Super+,` - Dismiss notification (Shift: all, Ctrl: toggle DND)
+- `Super+,` - Dismiss notification (Shift: all, Ctrl: DND)
 
 **Zoom** (Super+Mod):
-- `Super+Mod+scroll` - Zoom in/out
-- `Super+Mod++/-` - Zoom in/out
-- `Super+Mod+Shift+0` - Reset zoom
+- Scroll/+/- to zoom, Shift+0 to reset
 
 ### Waybar
 
