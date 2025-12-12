@@ -1,0 +1,28 @@
+#!/bin/bash
+# power profile selector using rofi
+
+CURRENT=$(powerprofilesctl get)
+
+menu() {
+  rofi -dmenu -p "Power Profile"
+}
+
+show_menu() {
+  for profile in performance balanced power-saver; do
+    if [[ "$profile" == "$CURRENT" ]]; then
+      echo "✓ $profile"
+    else
+      echo "  $profile"
+    fi
+  done | menu
+}
+
+choice=$(show_menu)
+[[ -z "$choice" ]] && exit 0
+
+selected=$(echo "$choice" | sed 's/^[✓ ]* //')
+
+if [[ "$selected" != "$CURRENT" ]]; then
+  powerprofilesctl set "$selected"
+  notify-send "Power Profile" "Switched to $selected"
+fi
