@@ -1,15 +1,6 @@
-# Arch + Hyprland Dotfiles
+# Arch + Hyprland
 
-Clean, modular dotfiles for Arch Linux with Hyprland window manager. Designed for developers with a focus on simplicity and maintainability.
-
-## Features
-
-- **Modular Configuration**: Separate files for different concerns (monitors, bindings, appearance)
-- **GNU Stow Deployment**: Simple, reversible symlink management
-- **Modular Installation**: Each program has its own install script
-- **Custom Wrapper Scripts**: Smart window management (launch-or-focus functionality)
-- **Centralized Theming**: Single source of truth for visual consistency
-- **No External Dependencies**: Pure Arch + Hyprland, no distribution overlays
+Dotfiles for Arch Linux with Hyprland.
 
 ## Quick Start
 
@@ -19,14 +10,14 @@ git clone <your-repo-url> ~/dotfiles
 cd ~/dotfiles
 
 # Run installation
-./install-new.sh
+./install.sh
 ```
 
-The installer will:
+This will:
 1. Install all required packages via pacman
-2. Deploy configurations using GNU stow
+2. Stow configurations
 3. Set up custom wrapper scripts
-4. Configure the minimal theme
+4. Configure theme
 
 ## Structure
 
@@ -50,13 +41,13 @@ dotfiles/
 ### Window Manager & UI
 - **Hyprland** - Wayland compositor
 - **Waybar** - Status bar with system monitoring
-- **Walker** - Application launcher
+- **Rofi** - Menu
 - **Mako** - Notification daemon
 
-### Terminal & Shell
-- **Alacritty** - GPU-accelerated terminal
-- **Starship** - Cross-shell prompt
-- **Bash** - Shell with custom aliases
+### Terminal/Shell
+- **Alacritty** - Terminal
+- **Starship** - Shell prompt
+- **Bash** - Shell with some aliases
 
 ### Development Tools
 - **Docker** + lazydocker
@@ -97,16 +88,6 @@ All application bindings use Super+Shift+Letter:
 
 See `~/.config/hypr/bindings.conf` for complete list.
 
-### Custom Wrapper Scripts
-
-Located in `~/.local/bin/`:
-- `launch-or-focus` - Launch app or focus if running
-- `launch-browser` - Smart browser launcher
-- `launch-webapp` - Open URL in browser
-- `launch-or-focus-webapp` - Focus or launch web app
-
-These replace Omarchy-specific commands with vanilla Hyprland equivalents.
-
 ### Waybar
 
 Configuration: `~/.config/waybar/config.jsonc`
@@ -129,16 +110,16 @@ To change wallpaper:
 ## Installation Scripts
 
 Modular package installers in `scripts/packages/`:
-- `core.sh` - Base system (git, vim, etc)
-- `hyprland.sh` - Window manager stack
+- `core.sh` - Base system (git, vim, yay, etc)
+- `hyprland.sh` - Compositor
 - `terminal.sh` - Terminal tools
-- `development.sh` - Dev tools (docker, lazygit)
+- `development.sh` - Dev tools
 - `applications.sh` - User applications
 - `fonts.sh` - Nerd fonts
 - `audio.sh` - Sonic Pi (optional)
-- `claude.sh` - Claude Code CLI
+- `claude.sh` - Claude
 
-Run individually: `bash scripts/packages/core.sh`
+They can be run individually.
 
 ## Stow Management
 
@@ -166,8 +147,6 @@ Edit `~/.config/hypr/bindings.conf`:
 bindd = SUPER SHIFT, X, Description, exec, your-command
 ```
 
-Reload: `hyprctl reload`
-
 ### Multi-Monitor Setup
 
 Edit `~/.config/hypr/monitors.conf`:
@@ -175,17 +154,6 @@ Edit `~/.config/hypr/monitors.conf`:
 monitor = HDMI-A-1, 1920x1080@60, 0x0, 1
 monitor = eDP-1, 1920x1080@60, 0x1080, 1
 ```
-
-Reload: `hyprctl reload`
-
-### Custom Aliases
-
-Add to `~/.bashrc`:
-```bash
-alias mycommand='...'
-```
-
-Reload: `source ~/.bashrc`
 
 ## Troubleshooting
 
@@ -196,15 +164,14 @@ Reload: `source ~/.bashrc`
 ### Waybar not showing
 - Check if running: `pgrep waybar`
 - Restart: `killall waybar && waybar &`
-- Check logs: `waybar -l debug`
+- Logs: `waybar -l debug`
 
 ### Keybindings not working
-- Verify custom scripts are executable: `chmod +x ~/.local/bin/*`
+- Verify scripts are executable: `chmod +x ~/.local/bin/*`
 - Check script path: `which launch-browser`
-- Test manually: `launch-browser`
+- Test: `launch-browser`
 
 ### Applications not launching
 - Verify package installed: `pacman -Q <package>`
-- Check executable name: `which <app>`
-- Test from terminal first
+- Check name: `which <app>`
 
