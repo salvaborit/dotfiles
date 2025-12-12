@@ -268,7 +268,6 @@ Modular package installers in `scripts/packages/`:
 - `applications.sh` - User applications
 - `fonts.sh` - Nerd fonts
 - `audio.sh` - Sonic Pi (optional)
-- `claude.sh` - Claude Code CLI
 
 They can be run individually.
 
