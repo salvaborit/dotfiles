@@ -63,3 +63,5 @@ export STARSHIP_CONFIG=~/.config/starship.toml
 export LIBVIRT_DEFAULT_URI="qemu:///system"
 
 export PATH="$HOME/.local/bin:$PATH"
+
+alias claude="/home/sba/.claude/local/claude"
