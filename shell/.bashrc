@@ -11,6 +11,7 @@ if command -v eza &>/dev/null; then
   alias ls='eza -lh --group-directories-first --icons=auto'
   alias lsa='ls -a'
   alias ll='ls -lah'
+  alias lr='ls -lahsnew'
   alias lt='eza --tree --level=2 --long --icons --git'
   alias lta='lt -a'
 else
@@ -31,6 +32,7 @@ alias g='git'
 
 alias p='sudo pacman'
 alias q='exit'
+alias c='clear'
 alias pacrm='sudo pacman -Rns $(pacman -Qtdq)'
 
 alias pingpi='ping 192.168.1.12'
