@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Google Tasks
+Comment=Google Tasks web application
+Icon=google-tasks
+Exec=chromium --app=https://tasks.google.com
+Categories=Network;WebBrowser;
+StartupNotify=true
+Terminal=false
