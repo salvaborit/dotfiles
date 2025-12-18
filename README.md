@@ -36,7 +36,7 @@ dotfiles/
     └── packages/       # Per-program installers
 ```
 
-## Stack (1118 pacman packages)
+## Stack (1119 pacman packages)
 
 ### Core System (`core.sh`)
 - **git**
@@ -126,7 +126,7 @@ dotfiles/
 - **Slack** (AUR)
 - **LocalSend** (AUR) - Local file sharing
 - **Teams** (AUR) - MS Teams
-- **FortiClient VPN** (AUR)
+- **FortiClient-VPN** (AUR) - 7.4.3 (flagged out of date in AUR)
 - **Zoom** (AUR)
 - **Balena Etcher** (AUR)
 
