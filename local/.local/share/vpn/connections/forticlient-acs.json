@@ -1,6 +1,6 @@
 {
   "label": "FortiClient ACS",
-  "connect": "/opt/forticlient/fortivpn connect acs",
-  "disconnect": "/opt/forticlient/fortivpn disconnect",
+  "connect": "/opt/forticlient/forticlient-cli vpn connect acs",
+  "disconnect": "/opt/forticlient/forticlient-cli vpn disconnect",
   "requires_terminal": true
 }

@@ -29,12 +29,12 @@ check_vpn_status() {
     local label="$2"
 
     # If any VPN interface is up, we assume it might be this one
-    # (FortiClient specific: could check /opt/forticlient/fortivpn status)
+    # (FortiClient specific: check via forticlient-cli vpn status)
     if is_vpn_active; then
         # Try FortiClient-specific status check if this is a FortiClient VPN
         if echo "$config_file" | grep -q "forticlient"; then
-            if command -v /opt/forticlient/fortivpn &>/dev/null; then
-                if /opt/forticlient/fortivpn status 2>/dev/null | grep -q "connected\|STATUS_CONNECTED"; then
+            if command -v /opt/forticlient/forticlient-cli &>/dev/null; then
+                if ! /opt/forticlient/forticlient-cli vpn status 2>/dev/null | grep -q "no running VPNs"; then
                     echo "connected"
                     return
                 fi
